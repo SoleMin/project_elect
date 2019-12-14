@@ -4,11 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ScheduleFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <Spinner
+        android:id="@+id/select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/depart"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <FrameLayout
+        android:id="@+id/sel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="일정 사항 표시" />
+        android:layout_height="match_parent" />
+</LinearLayout>
+
 
 </FrameLayout>

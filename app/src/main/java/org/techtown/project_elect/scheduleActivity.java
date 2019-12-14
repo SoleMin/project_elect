@@ -23,12 +23,7 @@ import java.util.List;
 
 
 public class scheduleActivity extends AppCompatActivity {
-    FirebaseDatabase database;
-    DatabaseReference ref;
 
-    ListView listview;
-    List<Schedule> oData;
-    ScheduleAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +34,17 @@ public class scheduleActivity extends AppCompatActivity {
         final Button major_button = (Button)findViewById(R.id.major);
         final Button more_button = (Button)findViewById(R.id.more);
 
-        // 각각의 버튼을 눌렀을 때 프레그 먼트를 생성해준다.
-       // final LinearLayout frag = (LinearLayout)findViewById(R.id.frag);
-        /*
+
         schedule_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frag.setVisibility(View.GONE);
+
                 schedule_button.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 major_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 more_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment, new ScheduleFragment());
+                fragmentTransaction.replace(R.id.fragment, new ListFragment());
                 fragmentTransaction.commit();
             }
         });
@@ -60,53 +53,30 @@ public class scheduleActivity extends AppCompatActivity {
           major_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frag.setVisibility(View.GONE);
+
                 major_button.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 schedule_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 more_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment, new MajorFragment());
+                fragmentTransaction.replace(R.id.fragment, new ScheduleFragment());
                 fragmentTransaction.commit();
             }
         });
         more_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frag.setVisibility(View.GONE);
+
                 more_button.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 schedule_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 major_button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                //FragmentManager fragmentManager = getSupportFragmentManager();
-                //FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                //fragmentTransaction.replace(R.id.fragment, new ScheduleFragment());
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, new ScheduleFragment());
             }
         });
-         */
 
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("User");
-        listview = findViewById(R.id.listview);
-        oData = new ArrayList<>();
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                oData.clear();
-                // 파이어베이스로 부터 가져옴.
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Schedule sc = snapshot.getValue(Schedule.class);
-                    oData.add(sc);      // 가져온 데이터를 리스트에 넣고
-                    Log.i("asd", "안된다능");
-                }
-                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침.
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("scheduleActivity", "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-        adapter = new ScheduleAdapter(oData, this);
-        listview.setAdapter(adapter);
+
     }
 }
